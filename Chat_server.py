@@ -19,7 +19,7 @@ try:
     
     while True:
         
-        db = pymysql.connect("127.0.0.1","root","123456","CHAT_SERVER")
+        db = pymysql.connect("127.0.0.1","bewwy","bewwy","CHAT_SERVER")
         cursor = db.cursor()
         
         data, addr = s.recvfrom(1024)
