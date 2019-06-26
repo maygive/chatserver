@@ -100,6 +100,7 @@ def open_login ():
     login.place(bordermode=OUTSIDE,height = 30,width =60,x=80,y=400)
 
 def sys_login(my_window,account,user,password,s,host,port,server):
+    check=0
     print(account)
     inputValue=user.get("1.0","end-1c")
 
@@ -108,14 +109,21 @@ def sys_login(my_window,account,user,password,s,host,port,server):
     Password=[]
     print("sssssssssssss"+str(inputValue+inputValue2))
     print(str(inputValue2))
-    for i in account:
-        Username,Password=i.split(":")
-        print(Username,Password)
-        if(Username == inputValue and Password == inputValue2):
-            print("EE")
-            my_window.destroy()
-            chat(inputValue,s,host,port,server)
-##            os.system("cn1.py "+inputValue)
+    if (inputValue=="" or inputValue2==""):
+            messagebox.showwarning("Warning","Have blank!")
+            check=1
+    else:  
+        for i in account:
+            Username,Password=i.split(":")
+            print(Username,Password)
+            if(Username == inputValue and Password == inputValue2):
+                print("EE")
+                check=1
+                my_window.destroy()
+                chat(inputValue,s,host,port,server)
+##              os.system("cn1.py "+inputValue)
+    if (check==0):
+        messagebox.showwarning("No member","Please sign in now")
         
     
     #textBox2.insert(END,inputValue+"\n")
@@ -226,7 +234,7 @@ def chat(user,s,host,port,server):
     setTextBox()
 def placeFile(filename):
     ftp = FTP(str(r[1]))
-    ftp.login(user='chatserver', passwd = 'chatserver')
+    ftp.login(user='bewwy', passwd = 'bewwy')
     ftp.cwd('FTP') ##take file in folder FTP
     data = str(list(filename.split("/"))[-1])#filename
     print(data)
@@ -237,7 +245,7 @@ def placeFile(filename):
     
 def grabFile(filename):#ftp default port22
     ftp = FTP(str(r[1]))
-    ftp.login(user='chatserver', passwd = 'chatserver')
+    ftp.login(user='bewwy', passwd = 'bewwy')
     ftp.cwd('FTP')
     data = str(list(filename.split("/"))[-1])
     
@@ -282,72 +290,6 @@ def showfile():
         uncmpstr = zlib.decompress(data)
         data=uncmpstr.decode("utf-8")
         print(data)
-##    message = 'select user,message from server where ((user = "{0}" and to_user = "{1}") or (user = "{2}" and to_user = "{3}"))'.format(user,tuser,tuser,user)
-##    s.sendto(message.encode('utf-8'), server)
-##    data, addr = s.recvfrom(1024)
-##      
-##    uncmpstr = zlib.decompress(data)
-##    data=uncmpstr.decode("utf-8")
-    
-    
-    
-    
-##    while True:
-##        print(i)
-##        i+=1
-##        message = 'select user,message from server where ((user = "{0}" and to_user = "{1}") or (user = "{2}" and to_user = "{3}"))'.format(user,tuser,tuser,user)
-##        s.sendto(message.encode('utf-8'), server)
-##        root.after(1000,setTextBox)
-##      
-##        data, addr = s.recvfrom(1024)
-##          
-##        uncmpstr = zlib.decompress(data)
-##        data=uncmpstr.decode("utf-8")
-##    x1=list(filename.split("/"))
-##
-##    data=x1[len(x1)-1]
-##    x1.pop(len(x1)-1)
-##    a = "/".join(x1)
-##
-##    os.chdir(a)
-##    PORT =8000 #port http
-##
-##    s=x[1]
-##    user=x[2]
-##    tuser = to_user[0]
-##    server = x[4]
-##            
-##    print(server)
-##    url = "http://{0}:{1}/{2}".format(host,PORT,data)
-##    date,timez=time()
-##    message = "INSERT INTO server (user,to_user, message, date, time) VALUES ('%s', '%s', '%s', DATE('%s'), TIME('%s'));"%(user,tuser,url,date,timez)
-##    Handler = http.server.SimpleHTTPRequestHandler
-##    print(message)
-##    httpd = socketserver.TCPServer(("",PORT),Handler)
-####    print("Server at PORT ",url,PORT)
-##    
-####    data, addr = s.recvfrom(1024)
-######    print(addr[0],addr[1])  
-####    uncmpstr = zlib.decompress(data)
-####    data=uncmpstr.decode("utf-8")
-####    print(data)
-##    
-##    httpd.serve_forever()
-##    server.stop_serving()
-####    httpd.server_close()
-####    httpd.shutdown()
-##
-##    s.sendto(message.encode('utf-8'), server)
-##
-####    StoppableRPCServer.serve_forever()
-####    StoppableRPCServer.not_forever
-##
-##
-
-
-
-
-
 
 
 chack=[""]
@@ -377,7 +319,7 @@ def setTextBox():
         if(nameuser.upper() == tuser.upper() and oldfile!=namefile):##check user-send == to_user and is not oldfile
             chack[0]=namefile
             print(nameuser,namefile)
-            MsgBox = messagebox.askquestion ('Exit Application','Are you sure you want to exit the application',icon = 'warning')
+            MsgBox = messagebox.askquestion ('File accept','Are you sure you accept file',icon = 'warning')
             if MsgBox == 'yes':
                
                grabFile(namefile)##recived file
